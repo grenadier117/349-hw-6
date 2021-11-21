@@ -28,9 +28,6 @@
         border-radius: 15px;
         order: -1;
       }
-      .message-row p {
-        /* flex: auto; */
-      }
 
       .me {
         justify-content: flex-end;
