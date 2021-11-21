@@ -26,8 +26,7 @@
         padding-right: 1em;
         /* flex: auto; */
         border-radius: 15px;
-        padding-right: 0;
-        padding-left: 1em;
+        order: -1;
       }
       .message-row p {
         /* flex: auto; */
@@ -40,6 +39,7 @@
       .me img{
         padding-right: 0;
         padding-left: 1em;
+        order: 1;
       }
 
       .me p {
