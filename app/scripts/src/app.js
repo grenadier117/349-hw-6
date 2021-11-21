@@ -17,15 +17,14 @@ class ChatApp {
     socket.init('ws://localhost:3001');
     socket.registerOpenHandler(() => {
       this.chatForm.init((data) => {
-        let message = new ChatMessage(data);
+        let message = new ChatMessage(data, true);
         socket.sendMessage(message.toObj());
       });
     });
     socket.registerMessageHandler((data) => {
-      console.log(data);
       // Create a new instance of `ChatMessage` with the incoming data from the
       // WebSockets server
-      let message = new ChatMessage(data);
+      let message = new ChatMessage(data, data.user == userStore.get());
       // then, call this.chatList.drawMessage() with the new message instance
       this.chatList.drawMessage(message.toObj());
     });
@@ -33,22 +32,25 @@ class ChatApp {
 }
 
 class ChatMessage {
-  constructor(data) {
+  constructor(data, me) {
     if (typeof data === 'string') {
       data = {
         message: data
       };
     }
+    this.me = me;
     this.username = data.user || userStore.get();
     this.message = data.message;
     this.timestamp = data.timestamp || (new Date()).getTime();
   }
 
   toObj() {
+    console.info('@JAKE - THIS', this);
     return {
       user: this.username,
       message: this.message,
-      timestamp: this.timestamp
+      timestamp: this.timestamp,
+      me: this.me,
     };
   }
 }
